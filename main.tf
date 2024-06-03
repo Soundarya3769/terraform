@@ -42,7 +42,7 @@ resource "aws_route_table_association" "subnet_assoc" {
   route_table_id = aws_route_table.main.id
 }
 # Creating Security Group
-resource "aws_security_group" "USA-Housing_sg" {
+resource "aws_security_group" "car-prediction_sg" {
   vpc_id = aws_vpc.main.id
   # Inbound Rules
   # HTTP access from anywhere
@@ -53,8 +53,8 @@ resource "aws_security_group" "USA-Housing_sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
   ingress {
-    from_port   = 7890
-    to_port     = 7890
+    from_port   = 8080
+    to_port     = 8080
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
@@ -96,20 +96,20 @@ variable "subnet_cidr" {
 }
 
 # Creating EC2 instance
-resource "aws_instance" "USA-Housing_instance" {
-  ami                         = "ami-0647086318eb3b918"
+resource "aws_instance" "car-prediction_instance" {
+  ami                         = "ami-0ca2e925753ca2fb4"
   instance_type               = "t2.micro"
   count                       = 1
-  key_name                    = "keypair"
-  vpc_security_group_ids      = ["${aws_security_group.USA-Housing_sg.id}"]
+  key_name                    = "key"
+  vpc_security_group_ids      = ["${aws_security_group.car-prediction_sg.id}"]
   subnet_id                   = aws_subnet.main.id
   associate_public_ip_address = true
   user_data                   = file("userdata.sh")
   tags = {
-    Name = "USA-Housing_Instance"
+    Name = "car-prediction_Instance"
   }
 }
 
 output "public_ip" {
-  value = aws_instance.USA-Housing_instance[*].public_ip
+  value = aws_instance.car-prediction_instance[*].public_ip
 }
