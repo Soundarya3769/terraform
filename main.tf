@@ -94,22 +94,23 @@ variable "vpc_cidr" {
 variable "subnet_cidr" {
   default = "10.0.1.0/24"
 }
-
 # Creating EC2 instance
-resource "aws_instance" "car-prediction" {
+resource "aws_instance" "car_prediction" {
   ami                         = "ami-0ca2e925753ca2fb4"
   instance_type               = "t2.micro"
   count                       = 1
   key_name                    = "key"
-  vpc_security_group_ids      = ["${aws_security_group.car-prediction_sg.id}"]
+  vpc_security_group_ids      = [aws_security_group.car_prediction_sg.id]
   subnet_id                   = aws_subnet.main.id
   associate_public_ip_address = true
   user_data                   = file("userdata.sh")
   tags = {
-    Name = "car-prediction_Instance"
+    Name = "car-prediction-Instance"
   }
 }
 
 output "public_ip" {
-  value = aws_instance.car-prediction_instance[*].public_ip
+  value = aws_instance.car_prediction[*].public_ip
 }
+
+
