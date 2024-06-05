@@ -80,8 +80,14 @@ resource "aws_security_group" "car_prediction_sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  // Outbound Rules
+#car-prediction access from anywhere
+ingress  {
+    from_port   = 8000
+    to_port     = 8000
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+  # Outbound Rules
   egress {
     from_port   = 0
     to_port     = 0
