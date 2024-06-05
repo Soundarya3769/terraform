@@ -1,5 +1,7 @@
 provider "aws" {
   region = "us-east-2"
+  access key = AKIAVRUVTJL6SLCKDEUF
+  secret key = 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
 }
 
 # VPC
