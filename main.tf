@@ -42,7 +42,10 @@ resource "aws_route_table_association" "subnet_assoc" {
   route_table_id = aws_route_table.main.id
 }
 # Creating Security Group
-resource "aws_security_group" "car-prediction_sg" {
+resource "aws_security_group" "car_prediction_sg" {
+  // Your configuration for the security group
+}
+
   vpc_id = aws_vpc.main.id
   # Inbound Rules
   # HTTP access from anywhere
