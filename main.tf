@@ -1,3 +1,8 @@
+provider "aws" {
+  region = "us-east-1"  # Set your desired AWS region here
+  access_key = "YOUR_ACCESS_KEY"
+  secret_key = "YOUR_SECRET_KEY"
+}
 # VPC
 resource "aws_vpc" "main" {
   cidr_block       = var.vpc_cidr
